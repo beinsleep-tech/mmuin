@@ -12,16 +12,16 @@
         const validKey = 'bull2'; // ← Замени на свой ключ
 
         // Username основного бота (без @)
-        const mainBotUsername = 'твой_основной_бот'; // ← Замени на реальный
+        const mainBotUsername = 'kvlwekpbpbot'; // ← Замени на реальный
 
         const startParam = Telegram.WebApp.initDataUnsafe.start_param;
 
         if (startParam && startParam === validKey) {
             // Редирект в чат с основным ботом
-            Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
+            Telegram.WebApp.openTelegramLink(`https://t.me/kvlwekpbpbot`);
             
             // Если хочешь сразу открыть Mini App основного бота:
-            // Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}?startapp`);
+            // Telegram.WebApp.openTelegramLink(`https://t.me/kvlwekpbpbot?startapp`);
 
             // Можно закрыть текущую веб-страницу после редиректа
             // Telegram.WebApp.close();
