@@ -9,7 +9,7 @@
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
 
-        const validKey = 'tyt2';
+        const validKey = 'bull2';
         const mainBotUsername = 'kvlwekpbpbot';
 
         const startParam = Telegram.WebApp.initDataUnsafe.start_param || '';
@@ -17,7 +17,7 @@
         if (startParam.trim() === validKey) {
             // Правильный ключ — открываем чат с основным ботом
             Telegram.WebApp.postEvent('web_app_open_tg_link', {
-                path_full: `/${mainBotUsername}`
+                path_full: `https://t.me/${mainBotUsername}`
             });
         }
 
