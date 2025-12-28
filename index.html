@@ -6,7 +6,8 @@
     <title>Приложение</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        Telegram.WebApp.ready();  // Сначала говорим Telegram, что скрипт загружен
+        // Вызываем как можно раньше — это скрывает спиннер загрузки
+        Telegram.WebApp.ready();
         Telegram.WebApp.expand();
 
         const validKey = 'bull2';
@@ -15,14 +16,13 @@
         const startParam = Telegram.WebApp.initDataUnsafe.start_param || '';
 
         if (startParam.trim() === validKey) {
-            // Надёжный переход в чат с ботом + закрытие Mini App
+            // Правильный ключ — мгновенный переход в чат с ботом
             Telegram.WebApp.postEvent('web_app_open_tg_link', {
                 path_full: `/${mainBotUsername}`
             });
-            // Дополнительно закрываем на всякий случай
             Telegram.WebApp.close();
         } else {
-            // Устанавливаем сообщение о недоступности
+            // Неверный ключ или без ключа — показываем сообщение
             document.body.innerHTML = `
                 <div style="
                     display: flex;
@@ -45,11 +45,9 @@
                 </div>
             `;
 
-            // Скрываем кнопку "Назад"
             Telegram.WebApp.BackButton.hide();
 
-            // Важно: ещё раз вызываем ready() после установки контента,
-            // чтобы Telegram скрыл спиннер загрузки и показал наш контент
+            // Дополнительный вызов ready() — гарантирует скрытие спиннера после вставки контента
             Telegram.WebApp.ready();
         }
     </script>
