@@ -1,48 +1,35 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приложение</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        Telegram.WebApp.ready();
-        Telegram.WebApp.expand();
+<script>
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
 
-        const validKey = 'bull2';
-        const mainBotUsername = 'kvlwekpbpbot';
+    const validKey = 'bull2';
+    const mainBotUsername = 'kvlwekpbpbot';
+    const startParam = Telegram.WebApp.initDataUnsafe.start_param;
 
-        const startParam = Telegram.WebApp.initDataUnsafe.start_param;
-
-        if (startParam && startParam.trim() === validKey) {
-            Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
-        } else {
-            document.body.innerHTML = 
-                <div style="
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100vh;
-                    margin: 0;
-                    padding: 20px;
-                    background: #fff;
-                    color: #666;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-                    text-align: center;
-                ">
-                    <h2 style="margin-bottom: 16px; color: #444;">Приложение недоступно</h2>
-                    <p style="max-width: 300px; line-height: 1.5;">
-                        Возможно, ссылка устарела или приложение временно не работает.
-                    </p>
-                    <p style="margin-top: 30px; font-size: 48px;">🫥</p>
-                </div>
-            ;
-
-            Telegram.WebApp.BackButton.hide();
-        }
-    </script>
-</head>
-<body style="margin:0; padding:0; background:#fff;">
-</body>
-</html>
+    if (startParam && startParam.trim() === validKey) {
+        Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
+    } else {
+        document.body.innerHTML = `
+            <div style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                padding: 20px;
+                background: #fff;
+                color: #666;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                text-align: center;
+            ">
+                <h2 style="margin-bottom: 16px; color: #444;">Приложение недоступно</h2>
+                <p style="max-width: 300px; line-height: 1.5;">
+                    Возможно, ссылка устарела или приложение временно не работает.
+                </p>
+                <p style="margin-top: 30px; font-size: 48px;">🫥</p>
+            </div>
+        `;
+        Telegram.WebApp.BackButton.hide();
+    }
+</script>
