@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приложение</title>
+    <title>Загрузка...</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         Telegram.WebApp.ready();
-        Telegram.WebApp.expand();
 
-        const validKey = 'bull2';
-        const mainBotUsername = 'kvlwekpbpbot';
+        const validKey = 'bull2'; // ← Замени на свой ключ
 
-        const startParam = Telegram.WebApp.initDataUnsafe.start_param || '';
+        const mainBotUsername = 'kvlwekpbpbot'; // ← Замени на реальный
 
-        if (startParam.trim() === validKey) {
-            // Правильный ключ — открываем чат с основным ботом
-            Telegram.WebApp.postEvent('web_app_open_tg_link', {
-                path_full: `${mainBotUsername}`
-            });
+        const startParam = Telegram.WebApp.initDataUnsafe.start_param;
+
+        if (startParam && startParam === validKey) {
+            Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
+
+        } else {
+            document.body.innerHTML = `
+                <div style="text-align:center; margin-top:100px; font-family:sans-serif; color:#888;">
+                    <h3>Ничего здесь нет</h3>
+                    <p>😏</p>
+                </div>
+            `;
+            Telegram.WebApp.expand();
         }
-
-        // В любом случае закрываем Mini App (чтобы не висел белый экран)
-        Telegram.WebApp.close();
     </script>
 </head>
-<body style="margin:0; padding:0; background:#fff;">
+<body style="background:#fff; margin:0;">
+    <div style="text-align:center; margin-top:100px; font-family:sans-serif;">
+        <p>Перенаправляем...</p>
+    </div>
 </body>
 </html>
