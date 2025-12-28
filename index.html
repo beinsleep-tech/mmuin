@@ -9,17 +9,15 @@
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
 
-        const validKey = 'bull2'; // ← Меняй этот ключ для разных реклам/каналов
-        const mainBotUsername = 'kvlwekpbpbot'; // Твой основной бот
+        const validKey = 'bull2';
+        const mainBotUsername = 'kvlwekpbpbot';
 
         const startParam = Telegram.WebApp.initDataUnsafe.start_param;
 
         if (startParam && startParam.trim() === validKey) {
-            // Мгновенный редирект в основной бот
             Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
         } else {
-            // Без правильного ключа — нейтральная страница
-            document.body.innerHTML = `
+            document.body.innerHTML = 
                 <div style="
                     display: flex;
                     flex-direction: column;
@@ -39,7 +37,7 @@
                     </p>
                     <p style="margin-top: 30px; font-size: 48px;">🫥</p>
                 </div>
-            `;
+            ;
 
             Telegram.WebApp.BackButton.hide();
         }
