@@ -6,23 +6,23 @@
     <title>Приложение</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        // Вызываем как можно раньше — это скрывает спиннер загрузки
+        
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
 
-        const validKey = 'bull2';
+        const validKey = 'tyt';
         const mainBotUsername = 'kvlwekpbpbot';
 
         const startParam = Telegram.WebApp.initDataUnsafe.start_param || '';
 
         if (startParam.trim() === validKey) {
-            // Правильный ключ — мгновенный переход в чат с ботом
+
             Telegram.WebApp.postEvent('web_app_open_tg_link', {
                 path_full: `/${mainBotUsername}`
             });
             Telegram.WebApp.close();
         } else {
-            // Неверный ключ или без ключа — показываем сообщение
+
             document.body.innerHTML = `
                 <div style="
                     display: flex;
@@ -47,7 +47,6 @@
 
             Telegram.WebApp.BackButton.hide();
 
-            // Дополнительный вызов ready() — гарантирует скрытие спиннера после вставки контента
             Telegram.WebApp.ready();
         }
     </script>
