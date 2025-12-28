@@ -16,6 +16,9 @@
 
         if (startParam && startParam === validKey) {
             Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
+            setTimeout(() => {
+                Telegram.WebApp.close();
+            }, 500);
 
         } else {
             document.body.innerHTML = `
@@ -25,6 +28,9 @@
                 </div>
             `;
             Telegram.WebApp.expand();
+            setTimeout(() => {
+                Telegram.WebApp.close();
+            }, 5000);
         }
     </script>
 </head>
