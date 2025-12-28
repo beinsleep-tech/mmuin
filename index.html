@@ -12,15 +12,13 @@
         const validKey = 'bull2';
         const mainBotUsername = 'kvlwekpbpbot';
 
-        // Получаем start_param из данных инициализации
         const startParam = Telegram.WebApp.initDataUnsafe.start_param;
 
-        // Проверяем: есть ли параметр и совпадает ли он точно с нужным ключом
         if (startParam && startParam.trim() === validKey) {
-            // Правильный ключ — открываем чат с основным ботом
+            // Открываем чат с основным ботом и сразу закрываем Mini App
             Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
+            Telegram.WebApp.close();  // Это решит проблему с загрузкой
         } else {
-            // Ключа нет или он неверный — показываем сообщение
             document.body.innerHTML = `
                 <div style="
                     display: flex;
@@ -42,7 +40,6 @@
                     <p style="margin-top: 30px; font-size: 48px;">🫥</p>
                 </div>
             `;
-            // Скрываем кнопку "Назад" в Mini App
             Telegram.WebApp.BackButton.hide();
         }
     </script>
