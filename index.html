@@ -3,43 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Загрузка...</title>
+    <title>Приложение</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
 
-        // Твой секретный ключ (можно менять для разных реклам)
-        const validKey = 'bull2'; // ← Замени на свой ключ
-
-        // Username основного бота (без @)
-        const mainBotUsername = 'kvlwekpbpbot'; // ← Замени на реальный
+        const validKey = 'bull2'; // ← Меняй этот ключ для разных реклам/каналов
+        const mainBotUsername = 'kvlwekpbpbot'; // Твой основной бот
 
         const startParam = Telegram.WebApp.initDataUnsafe.start_param;
 
-        if (startParam && startParam === validKey) {
-            // Редирект в чат с основным ботом
-            Telegram.WebApp.openTelegramLink(`https://t.me/kvlwekpbpbot`);
-            
-            // Если хочешь сразу открыть Mini App основного бота:
-            // Telegram.WebApp.openTelegramLink(`https://t.me/kvlwekpbpbot?startapp`);
-
-            // Можно закрыть текущую веб-страницу после редиректа
-            // Telegram.WebApp.close();
+        if (startParam && startParam.trim() === validKey) {
+            // Мгновенный редирект в основной бот
+            Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
         } else {
-            // Если ключа нет — показываем нейтральное сообщение
+            // Без правильного ключа — нейтральная страница
             document.body.innerHTML = `
-                <div style="text-align:center; margin-top:100px; font-family:sans-serif; color:#888;">
-                    <h3>Ничего здесь нет</h3>
-                    <p>😏</p>
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                    background: #fff;
+                    color: #666;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                    text-align: center;
+                ">
+                    <h2 style="margin-bottom: 16px; color: #444;">Приложение недоступно</h2>
+                    <p style="max-width: 300px; line-height: 1.5;">
+                        Возможно, ссылка устарела или приложение временно не работает.
+                    </p>
+                    <p style="margin-top: 30px; font-size: 48px;">🫥</p>
                 </div>
             `;
-            Telegram.WebApp.expand();
+
+            Telegram.WebApp.BackButton.hide();
         }
     </script>
 </head>
-<body style="background:#fff; margin:0;">
-    <div style="text-align:center; margin-top:100px; font-family:sans-serif;">
-        <p>Перенаправляем...</p>
-    </div>
+<body style="margin:0; padding:0; background:#fff;">
 </body>
 </html>
