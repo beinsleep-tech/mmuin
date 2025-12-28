@@ -6,19 +6,23 @@
     <title>Приложение</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        Telegram.WebApp.ready();
+        Telegram.WebApp.ready();  // Сначала говорим Telegram, что скрипт загружен
         Telegram.WebApp.expand();
 
         const validKey = 'bull2';
         const mainBotUsername = 'kvlwekpbpbot';
 
-        const startParam = Telegram.WebApp.initDataUnsafe.start_param;
+        const startParam = Telegram.WebApp.initDataUnsafe.start_param || '';
 
-        if (startParam && startParam.trim() === validKey) {
-            // Открываем чат с основным ботом и сразу закрываем Mini App
-            Telegram.WebApp.openTelegramLink(`https://t.me/${mainBotUsername}`);
-            Telegram.WebApp.close();  // Это решит проблему с загрузкой
+        if (startParam.trim() === validKey) {
+            // Надёжный переход в чат с ботом + закрытие Mini App
+            Telegram.WebApp.postEvent('web_app_open_tg_link', {
+                path_full: `/${mainBotUsername}`
+            });
+            // Дополнительно закрываем на всякий случай
+            Telegram.WebApp.close();
         } else {
+            // Устанавливаем сообщение о недоступности
             document.body.innerHTML = `
                 <div style="
                     display: flex;
@@ -40,7 +44,13 @@
                     <p style="margin-top: 30px; font-size: 48px;">🫥</p>
                 </div>
             `;
+
+            // Скрываем кнопку "Назад"
             Telegram.WebApp.BackButton.hide();
+
+            // Важно: ещё раз вызываем ready() после установки контента,
+            // чтобы Telegram скрыл спиннер загрузки и показал наш контент
+            Telegram.WebApp.ready();
         }
     </script>
 </head>
