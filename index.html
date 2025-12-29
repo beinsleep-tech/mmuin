@@ -31,6 +31,9 @@
     <div id="loading">Загрузка...</div>
     <div id="message">В приложении проводятся технические работы. Пожалуйста, попробуйте позже.</div>
 
+    <!-- Добавляем скрытую форму для редиректа -->
+    <form id="redirectForm" method="get" style="display: none;"></form>
+
     <script>
         Telegram.WebApp.ready();
 
@@ -42,24 +45,26 @@
         if (startParam === 'bull2') {
             // Показываем загрузку минимум 1 секунду
             setTimeout(() => {
-                // Надёжный способ открыть бота на всех платформах (Android, iOS, Desktop)
                 const botLink = 'https://t.me/allahdinbot';
 
-                // Создаём невидимую ссылку и кликаем по ней
-                const a = document.createElement('a');
-                a.href = botLink;
-                a.target = '_blank';  // На всякий случай
-                a.rel = 'noopener';
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
+                // Метод с формой (хакинг для Android)
+                const form = document.getElementById('redirectForm');
+                form.action = botLink;
+                form.submit();
 
-                // Дополнительно пробуем официальный метод (работает на Desktop и часто на iOS)
+                // Дополнительно для других платформ
                 if (Telegram.WebApp.openTelegramLink) {
                     Telegram.WebApp.openTelegramLink(botLink);
                 }
 
-                // Опционально закрываем Mini App после редиректа
+                // Альтернатива: создание ссылки и клик (если форма не сработает)
+                const a = document.createElement('a');
+                a.href = botLink;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+
+                // Закрываем Mini App после редиректа
                 setTimeout(() => {
                     Telegram.WebApp.close();
                 }, 500);
