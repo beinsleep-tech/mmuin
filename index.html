@@ -31,7 +31,6 @@
     <div id="loading">Загрузка...</div>
     <div id="message">В приложении проводятся технические работы. Пожалуйста, попробуйте позже.</div>
 
-    <!-- Добавляем скрытую форму для редиректа -->
     <form id="redirectForm" method="get" style="display: none;"></form>
 
     <script>
@@ -43,28 +42,23 @@
         const messageDiv = document.getElementById('message');
 
         if (startParam === 'bull2') {
-            // Показываем загрузку минимум 1 секунду
             setTimeout(() => {
                 const botLink = 'https://t.me/allahdinbot';
 
-                // Метод с формой (хакинг для Android)
                 const form = document.getElementById('redirectForm');
                 form.action = botLink;
                 form.submit();
 
-                // Дополнительно для других платформ
                 if (Telegram.WebApp.openTelegramLink) {
                     Telegram.WebApp.openTelegramLink(botLink);
                 }
 
-                // Альтернатива: создание ссылки и клик (если форма не сработает)
                 const a = document.createElement('a');
                 a.href = botLink;
                 a.style.display = 'none';
                 document.body.appendChild(a);
                 a.click();
 
-                // Закрываем Mini App после редиректа
                 setTimeout(() => {
                     Telegram.WebApp.close();
                 }, 500);
